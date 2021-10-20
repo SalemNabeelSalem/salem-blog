@@ -1,21 +1,33 @@
 <template>
   <div class="app-wrapper">
     <div class="app">
+      <Navigation />
       <router-view />
     </div>
   </div>
 </template> 
 
 <script>
+// @ is an alias to /src
+import Navigation from "@/components/Navigation";
+
 export default {
   name: "app",
-  components: {},
+
+  components: {
+    Navigation,
+  },
+  
   data() {
     return {};
   },
+  
   created() {},
+  
   mounted() {},
+  
   methods: {},
+  
   watch: {},
 };
 </script>
