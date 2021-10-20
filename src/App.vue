@@ -2,7 +2,10 @@
   <div class="app-wrapper">
     <div class="app">
       <Navigation />
+      
       <router-view />
+
+      <Footer />
     </div>
   </div>
 </template> 
@@ -10,24 +13,26 @@
 <script>
 // @ is an alias to /src
 import Navigation from "@/components/Navigation";
+import Footer from "@/components/Footer";
 
 export default {
   name: "app",
 
   components: {
     Navigation,
+    Footer,
   },
-  
+
   data() {
     return {};
   },
-  
+
   created() {},
-  
+
   mounted() {},
-  
+
   methods: {},
-  
+
   watch: {},
 };
 </script>
