@@ -110,7 +110,7 @@ export default {
       }
 
       .content-preview {
-        font-size: 13px;
+        font-size: 15px;
         max-height: 24px;
         width: 250px;
         white-space: nowrap;
