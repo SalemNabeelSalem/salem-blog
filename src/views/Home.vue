@@ -13,8 +13,22 @@
         <h3>View More Recent Blogs</h3>
 
         <div class="blog-cards">
-          <BlogCard :post="post" v-for="(post, index) in sampleBlogCards" :key="index" />
+          <BlogCard
+            :post="post"
+            v-for="(post, index) in sampleBlogCards"
+            :key="index"
+          />
         </div>
+      </div>
+    </div>
+
+    <div class="updates">
+      <div class="container">
+        <h2>Never miss a post. Register for your free account today!</h2>
+
+        <router-link class="router-button" to="#">
+          Register for Blog <Arrow class="arrow arrow-light" />
+        </router-link>
       </div>
     </div>
   </div>
@@ -24,6 +38,7 @@
 // @ is an alias to /src
 import BlogPost from "@/components/BlogPost";
 import BlogCard from "@/components/BlogCard";
+import Arrow from "@/assets/icons/arrow-right-light.svg";
 
 export default {
   name: "home",
@@ -31,6 +46,7 @@ export default {
   components: {
     BlogPost,
     BlogCard,
+    Arrow,
   },
 
   data() {
