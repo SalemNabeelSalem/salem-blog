@@ -34,7 +34,7 @@
 
 <script>
 // @ is an alias to /src
-import MenuIcon from "../assets/icons/bars-regular.svg";
+import MenuIcon from "@/assets/icons/bars-regular.svg";
 
 export default {
   name: "navigation",
