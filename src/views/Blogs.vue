@@ -3,6 +3,7 @@
     <div class="blog-cards container">
       <div class="toggle-edit">
         <span>Toggle Editing Post</span>
+
         <input type="checkbox" v-model="editPost" />
       </div>
 
@@ -23,19 +24,31 @@ export default {
   name: "blogs",
 
   components: {
-    BlogCard
+    BlogCard,
   },
 
   data() {
-    return {
-      editPost: false,
-    };
+    return {};
   },
 
   computed: {
     sampleBlogCards() {
       return this.$store.state.sampleBlogCards;
     },
+
+    editPost: {
+      get() {
+        return this.$store.state.editPost;
+      },
+
+      set(payload) {
+        this.$store.commit("toggleEditPost", payload);
+      },
+    },
+  },
+
+  beforeDestroy() {
+    this.$store.commit("toggleEditPost", false);
   },
 };
 </script>
@@ -84,7 +97,7 @@ export default {
     }
 
     input:checked[type="checkbox"]:before {
-      background: #fff;
+      background: rgb(7, 182, 45);
       left: 52px;
     }
   }
