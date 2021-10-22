@@ -44,7 +44,7 @@ export default {
     editPost() {
       return this.$store.state.editPost;
     },
-  }
+  },
 };
 </script>
 
