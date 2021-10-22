@@ -8,7 +8,7 @@
         </router-link>
       </p>
 
-      <h2>Login to Salem Blog</h2>
+      <h2>Login to Blog Account</h2>
 
       <div class="inputs">
         <div class="input">
@@ -17,7 +17,7 @@
         </div>
 
         <div class="input">
-          <input type="text" placeholder="Password" v-model="passowrd" />
+          <input type="password" placeholder="Password" v-model="password" />
           <Password class="icon" />
         </div>
       </div>
