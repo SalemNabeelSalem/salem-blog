@@ -159,8 +159,9 @@ button,
 
 .error {
   text-align: center;
-  font-size: 12px;
+  font-size: 15px;
   color: red;
+  font-weight: 600;
 }
 
 .blog-card-wrap {
