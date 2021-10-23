@@ -33,7 +33,7 @@
               Blogs
             </router-link>
 
-            <router-link v-if="user" class="link" :to="{ name: 'NewPost' }">
+            <router-link v-if="user" class="link" to="#">
               Create Post
             </router-link>
 
