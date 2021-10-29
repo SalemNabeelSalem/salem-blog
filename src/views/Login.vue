@@ -81,7 +81,7 @@ export default {
                   .get()
                   .then((doc) => {
                     if (doc.exists) {
-                      console.log("User Id: ", user.user.uid);
+                      console.log("User ID: ", user.user.uid);
                       this.$router.push({ name: "Home" });
                     }
                   });

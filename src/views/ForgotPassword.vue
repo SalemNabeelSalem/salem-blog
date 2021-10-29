@@ -6,6 +6,13 @@
 
     <div class="form-wrap">
       <form class="reset">
+        <p class="login-register">
+          Already have an account?
+          <router-link class="router-link" :to="{ name: 'Login' }">
+            Login
+          </router-link>
+        </p>
+
         <h2>Reset Password</h2>
 
         <p>Forgot your passowrd? Enter your email to reset it.</p>
@@ -47,7 +54,7 @@ export default {
       email: null,
       modalActive: false,
       modalMessage: null,
-      loading: null
+      loading: null,
     };
   },
 
@@ -55,8 +62,8 @@ export default {
     closeModal() {
       this.modalActive = !this.modalActive;
       this.email = null;
-    }
-  }
+    },
+  },
 };
 </script>
 

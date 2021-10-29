@@ -15,6 +15,9 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 
+import firebase from "firebase/app";
+import "firebase/auth";
+
 export default {
   name: "app",
 
@@ -31,6 +34,16 @@ export default {
 
   created() {
     this.checkRoute();
+    this.printCurrentUserEmail();
+    /*
+    setTimeout(() => {
+      if (firebase.auth().currentUser.email != null) {
+        console.log(firebase.auth().currentUser.email);
+      } else {
+        console.log("No User Logged In.");
+      }
+    }, 5000);
+    */
   },
 
   mounted() {},
@@ -46,6 +59,14 @@ export default {
         return;
       } else {
         this.navigationDisable = false;
+      }
+    },
+
+    printCurrentUserEmail() {
+      if (firebase.auth().currentUser.email != null) {
+        console.log("Current User Email: " + firebase.auth().currentUser.email);
+      } else {
+        console.log("No User Logged In.");
       }
     },
   },
