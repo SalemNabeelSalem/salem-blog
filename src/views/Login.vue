@@ -44,7 +44,7 @@ import Password from "@/assets/icons/lock-alt-solid.svg";
 
 import firebase from "firebase/app";
 import "firebase/auth";
-import db from "@/firebase/FirebaseInit";
+import db from "@/firebase/firebaseInit";
 
 export default {
   name: "login",
@@ -81,7 +81,7 @@ export default {
                   .get()
                   .then((doc) => {
                     if (doc.exists) {
-                      console.log("User ID: ", user.user.uid);
+                      // console.log("User ID: ", user.user.uid);
                       this.$router.push({ name: "Home" });
                     }
                   });
@@ -214,7 +214,7 @@ export default {
     display: none;
     flex: 2;
     background-size: cover;
-    background-image: url("../assets/background.png");
+    background-image: url("../assets/background.jpg");
     width: 100%;
     height: 100%;
 

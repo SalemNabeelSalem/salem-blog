@@ -2,11 +2,7 @@
   <div class="home">
     <BlogPost :post="welcomeScreen" />
 
-    <BlogPost
-      :post="post"
-      v-for="(post, index) in sampleBlogPost"
-      :key="index"
-    />
+    <BlogPost :post="post" v-for="(post, index) in blogPosts" :key="index" />
 
     <div class="blog-card-wrap">
       <div class="container">
@@ -14,9 +10,9 @@
 
         <div class="blog-cards">
           <BlogCard
-            :post="post"
-            v-for="(post, index) in sampleBlogCards"
+            v-for="(post, index) in blogCards"
             :key="index"
+            :post="post"
           />
         </div>
       </div>
@@ -24,7 +20,7 @@
 
     <div class="updates">
       <div class="container">
-        <h2>Never miss a post. Register for your free account today!</h2>
+        <h2>never miss a post. register for your free account today!</h2>
 
         <router-link class="router-button" :to="{ name: 'Register' }">
           Register for Blog <Arrow class="arrow arrow-light" />
@@ -52,34 +48,33 @@ export default {
   data() {
     return {
       welcomeScreen: {
-        title: "Welocome!",
-
-        blogPost:
-          "Weekly blog articles with all things programming including HTML, CSS, JavaScript and more. Register today to never miss a post!",
-
         welcomeScreen: true,
 
-        photo: "coding",
+        welcomeTitle: "welcome!",
+
+        welcomeBody: "It's so good to have you here! Welcome to my blog.",
+
+        welcomeCoverPhoto: "welcome",
       },
 
-      sampleBlogPost: [
+      blogPosts: [
         {
-          title: "This is a Filter Title1!",
-          blogHtml: "This is a filter blog post title2!",
-          blogCoverPhoto: "beautiful-stories",
+          postTitle: "This is a Filter Title1!",
+          postBody: "This is a filter blog post title2!",
+          postCoverPhoto: "beautiful-stories",
         },
         {
-          title: "This is a Filter Title2!",
-          blogHtml: "This is a filter blog post title2!",
-          blogCoverPhoto: "designed-for-everyone",
+          postTitle: "This is a Filter Title2!",
+          postBody: "This is a filter blog post title2!",
+          postCoverPhoto: "designed-for-everyone",
         },
       ],
     };
   },
 
   computed: {
-    sampleBlogCards() {
-      return this.$store.state.sampleBlogCards;
+    blogCards() {
+      return this.$store.state.blogCards;
     },
   },
 };

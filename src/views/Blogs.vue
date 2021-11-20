@@ -9,7 +9,7 @@
 
       <BlogCard
         :post="post"
-        v-for="(post, index) in sampleBlogCards"
+        v-for="(post, index) in blogCards"
         :key="index"
       />
     </div>
@@ -32,8 +32,8 @@ export default {
   },
 
   computed: {
-    sampleBlogCards() {
-      return this.$store.state.sampleBlogCards;
+    blogCards() {
+      return this.$store.state.blogCards;
     },
 
     editPost: {
@@ -42,6 +42,7 @@ export default {
       },
 
       set(payload) {
+        // payload will be true or false
         this.$store.commit("toggleEditPost", payload);
       },
     },

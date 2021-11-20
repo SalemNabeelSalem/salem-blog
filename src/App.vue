@@ -15,8 +15,8 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 
-import firebase from "firebase/app";
-import "firebase/auth";
+// import firebase from "firebase/app";
+// import "firebase/auth";
 
 export default {
   name: "app",
@@ -34,11 +34,13 @@ export default {
 
   created() {
     this.checkRoute();
-    this.printCurrentUserEmail();
+
+    // this.printCurrentUserEmail();
+
     /*
     setTimeout(() => {
       if (firebase.auth().currentUser.email != null) {
-        console.log(firebase.auth().currentUser.email);
+        console.log("Current User Email: " + firebase.auth().currentUser.email);
       } else {
         console.log("No User Logged In.");
       }
@@ -49,6 +51,10 @@ export default {
   mounted() {},
 
   methods: {
+    /**
+     * hide navigation and footer when user accesses a login page or register page
+     * or forgot password page.
+     */
     checkRoute() {
       if (
         this.$route.name === "Login" ||
@@ -56,12 +62,15 @@ export default {
         this.$route.name === "ForgotPassword"
       ) {
         this.navigationDisable = true;
-        return;
       } else {
         this.navigationDisable = false;
       }
     },
 
+    /**
+     * prints the current user's email address.
+     */
+    /*
     printCurrentUserEmail() {
       if (firebase.auth().currentUser.email != null) {
         console.log("Current User Email: " + firebase.auth().currentUser.email);
@@ -69,9 +78,11 @@ export default {
         console.log("No User Logged In.");
       }
     },
+    */
   },
 
   watch: {
+    // whenever route changes.
     $route() {
       this.checkRoute();
     },

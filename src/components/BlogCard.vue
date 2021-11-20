@@ -7,14 +7,14 @@
     </div>
 
     <img
-      :src="require(`../assets/blog-cards/${post.blogCoverPhoto}.jpg`)"
-      alt=""
+      :src="require(`@/assets/blog-cards/${post.postCoverPhoto}.jpg`)"
+      alt="blog post cover photo"
     />
 
     <div class="info">
-      <h4>{{ post.blogTitle }}</h4>
+      <h4>{{ post.postTitle }}</h4>
 
-      <h6>Posted on: {{ post.blogDate }}</h6>
+      <h6>Posted on: {{ post.postDate }}</h6>
 
       <router-link class="link" to="#">
         View the Post <Arrow class="arrow" />
@@ -141,7 +141,7 @@ export default {
       margin-top: auto;
       font-weight: 600;
       padding-top: 20px;
-      font-size: 12px;
+      font-size: 13px;
       padding-bottom: 4px;
       transition: 0.5s ease-in all;
 

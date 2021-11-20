@@ -9,16 +9,24 @@
 
           <ul>
             <li>
-              <a href="#"><Youtube class="svg-icon" /></a>
+              <a :href="profiles.guthub" target="_blank">
+                <Github class="svg-icon" />
+              </a>
             </li>
             <li>
-              <a href="#"><Twitter class="svg-icon" /></a>
+              <a :href="profiles.linkedin" target="_blank">
+                <Linkedin class="svg-icon" />
+              </a>
             </li>
             <li>
-              <a href="#"><Instegram class="svg-icon" /></a>
+              <a :href="profiles.twitter" target="_blank">
+                <Twitter class="svg-icon" />
+              </a>
             </li>
             <li>
-              <a href="#"><Linkedin class="svg-icon" /></a>
+              <a :href="profiles.instegram" target="_blank">
+                <Instegram class="svg-icon" />
+              </a>
             </li>
           </ul>
         </div>
@@ -45,7 +53,7 @@
       </div>
 
       <div class="right">
-        <p>Copyright 2021 All Rights Reserved</p>
+        <p>Copyright {{ new Date().getFullYear() }} All Rights Reserved</p>
       </div>
     </div>
   </footer>
@@ -53,24 +61,31 @@
 
 <script>
 // @ is an alias to /src
-import Youtube from "../assets/icons/youtube-brands.svg";
-import Twitter from "../assets/icons/twitter-brands.svg";
-import Instegram from "../assets/icons/instagram-brands.svg";
-import Linkedin from "../assets/icons/linkedin-brands.svg";
+import Github from "@/assets/icons/github-brand.svg";
+import Linkedin from "@/assets/icons/linkedin-brand.svg";
+import Twitter from "@/assets/icons/twitter-brand.svg";
+import Instegram from "@/assets/icons/instagram-brand.svg";
 
 export default {
   name: "footer",
 
   components: {
-    Youtube,
+    Github,
+    Linkedin,
     Twitter,
     Instegram,
-    Linkedin,
   },
 
   data() {
     return {
       user: null,
+
+      profiles: {
+        linkedin: "https://www.linkedin.com/in/isalem-nabeel",
+        twitter: "https://twitter.com/isalem_nabeel",
+        instegram: "https://www.instagram.com/isalem_nabeel",
+        guthub: "https://github.com/SalemNabeelSalem",
+      },
     };
   },
 };
@@ -114,6 +129,7 @@ footer {
         text-align: center;
         font-size: 24px;
         color: #fff;
+        margin-bottom: 16px;
         text-decoration: none;
         font-weight: 600;
 

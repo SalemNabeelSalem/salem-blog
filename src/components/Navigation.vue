@@ -17,11 +17,9 @@
             <router-link class="link" :to="{ name: 'Blogs' }">
               Blog
             </router-link>
-            
-            <router-link class="link" to="#">
-              Create Post
-            </router-link>
-            
+
+            <router-link class="link" to="#"> Create Post </router-link>
+
             <router-link class="link" :to="{ name: 'Login' }">
               Login/Register
             </router-link>
@@ -29,22 +27,16 @@
         </div>
       </nav>
 
-      <MenuIcon @click="toggleMovileNav" class="menu-icon" v-show="mobile" />
+      <MenuIcon @click="toggleMobileNav" class="menu-icon" v-show="mobile" />
 
       <transition name="mobile-nav">
         <ul class="mobile-nav" v-show="mobileNav">
-          <router-link class="link" :to="{ name: 'Home' }">
-            Home
-          </router-link>
-          
-          <router-link class="link" :to="{ name: 'Blogs' }">
-            Blog
-          </router-link>
-          
-          <router-link class="link" to="#">
-            Create Post
-          </router-link>
-          
+          <router-link class="link" :to="{ name: 'Home' }"> Home </router-link>
+
+          <router-link class="link" :to="{ name: 'Blogs' }"> Blog </router-link>
+
+          <router-link class="link" to="#"> Create Post </router-link>
+
           <router-link class="link" :to="{ name: 'Login' }">
             Login/Register
           </router-link>
@@ -68,29 +60,36 @@ export default {
   data() {
     return {
       mobile: null,
+
       mobileNav: null,
+
       windowWidth: null,
     };
   },
 
   created() {
-    window.addEventListener("resize", this.checkScreen);
-    this.checkScreen();
+    // listen for window resize event and update mobile state accordingly.
+    window.addEventListener("resize", this.checkScreenSize);
+ 
+    this.checkScreenSize();
   },
 
   methods: {
-    checkScreen() {
+    checkScreenSize() {
       this.windowWidth = window.innerWidth;
+
       if (this.windowWidth <= 750) {
         this.mobile = true;
         return;
       }
+
       this.mobile = false;
       this.mobileNav = false;
+
       return;
     },
 
-    toggleMovileNav() {
+    toggleMobileNav() {
       this.mobileNav = !this.mobileNav;
     },
   },
@@ -125,7 +124,7 @@ header {
 
       .header {
         font-weight: 600;
-        font-size: 26;
+        font-size: 26px;
         color: #000;
         text-decoration: none;
       }
@@ -162,7 +161,6 @@ header {
   }
 
   .mobile-nav {
-    z-index: 99;
     padding: 20px;
     width: 70%;
     max-width: 250px;

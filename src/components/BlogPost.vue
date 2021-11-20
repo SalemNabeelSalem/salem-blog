@@ -3,20 +3,24 @@
     <div class="blog-content">
       <div>
         <h2 v-if="post.welcomeScreen">
-          {{ post.title }}
+          {{ post.welcomeTitle }}
         </h2>
         <h2 v-else>
-          {{ post.title }}
+          {{ post.postTitle }}
         </h2>
 
         <p v-if="post.welcomeScreen">
-          {{ post.blogPost }}
+          {{ post.welcomeBody }}
         </p>
         <p class="content-preview" v-else>
-          {{ post.blogHtml }}
+          {{ post.postBody }}
         </p>
 
-        <router-link class="link link-light" v-if="post.welcomeScreen" to="#">
+        <router-link
+          class="link link-light"
+          v-if="post.welcomeScreen"
+          :to="{ name: 'Login' }"
+        >
           Login / Register <Arrow class="arrow arrow-light" />
         </router-link>
         <router-link class="link" v-else to="#">
@@ -28,13 +32,13 @@
     <div class="blog-photo">
       <img
         v-if="post.welcomeScreen"
-        :src="require(`../assets/blog-photos/${post.photo}.jpg`)"
-        alt=""
+        :src="require(`@/assets/blog-photos/${post.welcomeCoverPhoto}.jpg`)"
+        alt="welcome screen cover photo"
       />
       <img
         v-else
-        :src="require(`../assets/blog-photos/${post.blogCoverPhoto}.jpg`)"
-        alt=""
+        :src="require(`@/assets/blog-photos/${post.postCoverPhoto}.jpg`)"
+        alt="blog post cover photo"
       />
     </div>
   </div>
@@ -93,7 +97,7 @@ export default {
       }
 
       h2 {
-        font-size: 32px;
+        font-size: 40px;
         font-weight: 300;
         text-transform: uppercase;
         margin-bottom: 24px;
@@ -104,13 +108,13 @@ export default {
       }
 
       p {
-        font-size: 15px;
+        font-size: 18px;
         font-weight: 300;
         line-height: 1.7;
       }
 
       .content-preview {
-        font-size: 15px;
+        font-size: 18px;
         max-height: 24px;
         width: 250px;
         white-space: nowrap;
@@ -120,6 +124,7 @@ export default {
       }
 
       .link {
+        font-size: 16px;
         display: inline-flex;
         align-items: center;
         margin-top: 32px;

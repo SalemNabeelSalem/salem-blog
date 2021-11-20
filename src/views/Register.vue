@@ -56,7 +56,7 @@ import User from "@/assets/icons/user-alt-light.svg";
 
 import firebase from "firebase/app";
 import "firebase/auth";
-import db from "@/firebase/FirebaseInit";
+import db from "@/firebase/firebaseInit";
 
 export default {
   name: "register",
