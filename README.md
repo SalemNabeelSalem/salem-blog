@@ -1,6 +1,6 @@
 # Salem-Blog
 
-This is a blog.
+This is a personal blog created by using vuejs and firebase.
 
 ## Vue Project Manager GUI
 
