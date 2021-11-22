@@ -16,7 +16,7 @@ const routes = [
     name: "Home",
     component: Home,
     meta: {
-      title: "Home",
+      title: "Home", // This is the title that will be displayed in the browser tab
     },
   },
   {
@@ -24,7 +24,7 @@ const routes = [
     name: "Blogs",
     component: Blogs,
     meta: {
-      title: "Blogs",
+      title: "Blogs", // This is the title that will be displayed in the browser tab
     },
   },
   {
@@ -32,7 +32,7 @@ const routes = [
     name: "Login",
     component: Login,
     meta: {
-      title: "Login",
+      title: "Login", // This is the title that will be displayed in the browser tab
     },
   },
   {
@@ -40,7 +40,7 @@ const routes = [
     name: "Register",
     component: Register,
     meta: {
-      title: "Register",
+      title: "Register", // This is the title that will be displayed in the browser tab
     },
   },
   {
@@ -48,17 +48,22 @@ const routes = [
     name: "ForgotPassword",
     component: ForgotPassword,
     meta: {
-      title: "Forgot Password",
+      title: "Forgot Password", // This is the title that will be displayed in the browser tab
     },
   },
 ];
 
 const router = new VueRouter({
-  mode: "history",
+  mode: "history", // This is to remove the # from the url
   base: process.env.BASE_URL,
   routes,
 });
 
+/**
+ * to: is the route we are going to
+ * from: is the route we are coming from
+ * next: is the function that tells vue to continue
+ */
 router.beforeEach((to, from, next) => {
   document.title = `${to.meta.title} | Salem Blog`;
   next();

@@ -4,14 +4,10 @@
       <div class="toggle-edit">
         <span>Toggle Editing Post</span>
 
-        <input type="checkbox" v-model="editPost" />
+        <input type="checkbox" v-model="editingPostControl" />
       </div>
 
-      <BlogCard
-        :post="post"
-        v-for="(post, index) in blogCards"
-        :key="index"
-      />
+      <BlogCard :post="post" v-for="(post, index) in blogCards" :key="index" />
     </div>
   </div>
 </template>
@@ -31,25 +27,24 @@ export default {
     return {};
   },
 
-  computed: {
+  computed: { 
     blogCards() {
       return this.$store.state.blogCards;
     },
 
-    editPost: {
+    editingPostControl: {
       get() {
-        return this.$store.state.editPost;
+        return this.$store.state.editingPostControl;
       },
 
       set(payload) {
-        // payload will be true or false
-        this.$store.commit("toggleEditPost", payload);
+        this.$store.commit("toggleEditingPostControl", payload); // payload is true or false
       },
     },
   },
 
-  beforeDestroy() {
-    this.$store.commit("toggleEditPost", false);
+  beforeDestroy() { // this is called when the component is destroyed
+    this.$store.commit("toggleEditingPostControl", false); // reset editing post control
   },
 };
 </script>
@@ -65,11 +60,11 @@ export default {
     top: -70px;
     right: 0;
 
-    span {
+    span { // is the toggle text
       margin-right: 16px;
     }
 
-    input[type="checkbox"] {
+    input[type="checkbox"] { // is the toggle switch
       position: relative;
       border: none;
       -webkit-appearance: none;

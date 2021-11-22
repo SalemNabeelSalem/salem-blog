@@ -8,7 +8,7 @@ import db from "@/firebase/firebaseInit";
 Vue.use(Vuex);
 
 export default new Vuex.Store({
-  state: {
+  state: { // state is the data that is shared between components
     blogCards: [
       {
         postTitle: "Post Card #1",
@@ -32,7 +32,7 @@ export default new Vuex.Store({
       },
     ],
 
-    editPost: false,
+    editingPostControl: false, // true if editing post, false if not
 
     user: null,
 
@@ -49,11 +49,9 @@ export default new Vuex.Store({
     profileInitials: null,
   },
 
-  methods: {},
-
-  mutations: {
-    toggleEditPost(state, payload) {
-      state.editPost = payload;
+  mutations: { // mutations are used to change the state of the store
+    toggleEditingPostControl(state, payload) { // payload is boolean value
+      state.editingPostControl = payload;
     },
 
     setProfileInfo(state, payload) {
@@ -80,5 +78,7 @@ export default new Vuex.Store({
     },
   },
 
-  modules: {},
+  modules: { // modules are used to group related state
+
+  },
 });

@@ -1,9 +1,13 @@
 <template>
   <div class="blog-card">
-    <div class="icons" v-show="editPost">
-      <div class="icon"><Edit class="edit" /></div>
+    <div class="icons" v-show="editingPostControl">
+      <div class="icon">
+        <Edit class="edit" />
+      </div>
 
-      <div class="icon"><Delete class="delete" /></div>
+      <div class="icon">
+        <Delete class="delete" />
+      </div>
     </div>
 
     <img
@@ -41,8 +45,8 @@ export default {
   },
 
   computed: {
-    editPost() {
-      return this.$store.state.editPost;
+    editingPostControl() {
+      return this.$store.state.editingPostControl; // get editing post control from store
     },
   },
 };
@@ -124,18 +128,21 @@ export default {
     color: #000;
 
     h4 {
+      // post title
       padding-bottom: 8px;
       font-size: 20px;
       font-weight: 600;
     }
 
     h6 {
+      // post date
       font-weight: 600;
       font-size: 12px;
       padding-bottom: 16px;
     }
 
     .link {
+      // link to post
       display: inline-flex;
       align-items: center;
       margin-top: auto;
@@ -150,6 +157,7 @@ export default {
       }
 
       .arrow {
+        // arrow icon
         width: 10px;
       }
     }

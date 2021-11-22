@@ -123,6 +123,7 @@ export default {
 }
 
 .arrow {
+  // arrow icon
   margin-left: 8px;
   width: 12px;
 
@@ -132,6 +133,7 @@ export default {
 }
 
 .arrow-light {
+  // arrow icon for light theme
   path {
     fill: #fff;
   }
@@ -190,6 +192,7 @@ button,
 }
 
 .error {
+  // error message
   text-align: center;
   font-size: 15px;
   color: red;
