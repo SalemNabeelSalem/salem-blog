@@ -12,12 +12,16 @@
 
       <div class="inputs">
         <div class="input">
-          <input type="text" placeholder="Email" v-model="email" />
+          <input type="email" placeholder="Email" v-model="userInfo.email" />
           <Email class="icon" />
         </div>
 
         <div class="input">
-          <input type="password" placeholder="Password" v-model="password" />
+          <input
+            type="password"
+            placeholder="Password"
+            v-model="userInfo.password"
+          />
           <Password class="icon" />
         </div>
 
@@ -58,22 +62,38 @@ export default {
     return {
       error: null,
       errorMsg: "",
-      
-      email: "",
-      password: "",
+
+      userInfo: {
+        email: "",
+        password: "",
+      },
     };
   },
 
   methods: {
+    // check all form fields are filled
+    checkFormFields() {
+      if (this.userInfo.email === "" || this.userInfo.password === "") {
+        this.error = true;
+        this.errorMsg = "Please fill in all fields";
+        return false;
+      } else {
+        return true;
+      }
+    },
+
     signIn() {
-      if (this.email !== "" && this.password !== "") {
+      if (this.checkFormFields()) {
         this.error = false;
         this.errorMsg = "";
 
         try {
           firebase
             .auth()
-            .signInWithEmailAndPassword(this.email, this.password)
+            .signInWithEmailAndPassword(
+              this.userInfo.email,
+              this.userInfo.password
+            )
             .then(
               (user) => {
                 db.collection("users")
@@ -81,8 +101,9 @@ export default {
                   .get()
                   .then((doc) => {
                     if (doc.exists) {
-                      // console.log("User ID: ", user.user.uid);
-                      this.$router.push({ name: "Home" });
+                      console.log("user exists with id: ", user.user.uid);
+                    } else {
+                      console.log("user does not exist");
                     }
                   });
               },
@@ -95,9 +116,6 @@ export default {
           this.error = true;
           this.errorMsg = error.message;
         }
-      } else {
-        this.error = true;
-        this.errorMsg = "Please fill out all fields.";
       }
     },
   },

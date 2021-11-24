@@ -12,27 +12,43 @@
 
       <div class="inputs">
         <div class="input">
-          <input type="text" placeholder="First Name" v-model="firstName" />
+          <input
+            type="text"
+            placeholder="First Name"
+            v-model="userInfo.firstName"
+          />
           <User class="icon" />
         </div>
 
         <div class="input">
-          <input type="text" placeholder="Last Name" v-model="lastName" />
+          <input
+            type="text"
+            placeholder="Last Name"
+            v-model="userInfo.lastName"
+          />
           <User class="icon" />
         </div>
 
         <div class="input">
-          <input type="text" placeholder="Username" v-model="username" />
+          <input
+            type="text"
+            placeholder="Username"
+            v-model="userInfo.username"
+          />
           <User class="icon" />
         </div>
 
         <div class="input">
-          <input type="text" placeholder="Email" v-model="email" />
+          <input type="email" placeholder="Email" v-model="userInfo.email" />
           <Email class="icon" />
         </div>
 
         <div class="input">
-          <input type="password" placeholder="Password" v-model="password" />
+          <input
+            type="password"
+            placeholder="Password"
+            v-model="userInfo.password"
+          />
           <Password class="icon" />
         </div>
 
@@ -72,40 +88,61 @@ export default {
       error: null,
       errorMsg: "",
 
-      firstName: "",
-      lastName: "",
-      username: "",
-      email: "",
-      password: "",
+      userInfo: {
+        firstName: "",
+        lastName: "",
+        username: "",
+        email: "",
+        password: "",
+      },
     };
   },
 
   methods: {
-    register() {
+    // check all form fields are filled
+    checkFormFields() {
       if (
-        this.firstName !== "" &&
-        this.lastName !== "" &&
-        this.username !== "" &&
-        this.email !== "" &&
-        this.password !== ""
+        this.userInfo.firstName === "" ||
+        this.userInfo.lastName === "" ||
+        this.userInfo.username === "" ||
+        this.userInfo.email === "" ||
+        this.userInfo.password === ""
       ) {
+        this.error = true;
+        this.errorMsg = "Please fill in all fields";
+        return false;
+      } else {
+        return true;
+      }
+    },
+
+    register() {
+      if (this.checkFormFields()) {
         this.error = false;
         this.errorMsg = "";
 
         try {
           firebase
             .auth()
-            .createUserWithEmailAndPassword(this.email, this.password)
+            .createUserWithEmailAndPassword(
+              this.userInfo.email,
+              this.userInfo.password
+            )
             .then(
               (user) => {
                 db.collection("users").doc(user.user.uid).set({
-                  firstName: this.firstName,
-                  lastName: this.lastName,
-                  username: this.username,
-                  email: this.email,
+                  firstName: this.userInfo.firstName,
+                  lastName: this.userInfo.lastName,
+                  username: this.userInfo.username,
+                  email: this.userInfo.email,
                 });
 
-                this.$router.push({ name: "Home" });
+                if (user) {
+                  this.$router.push({ name: "Home" });
+                } else {
+                  this.error = true;
+                  this.errorMsg = "something went wrong user not created";
+                }
               },
               (error) => {
                 this.error = true;
@@ -116,9 +153,6 @@ export default {
           this.error = true;
           this.errorMsg = error.message;
         }
-      } else {
-        this.error = true;
-        this.errorMsg = "Please fill out all fields.";
       }
     },
   },
