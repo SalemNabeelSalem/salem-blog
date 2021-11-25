@@ -1,5 +1,7 @@
 <template>
   <div class="form-wrap">
+    <Loading v-if="loading" />
+
     <form class="login">
       <p class="login-register">
         Don't have an account?
@@ -39,12 +41,15 @@
 
     <div class="background"></div>
   </div>
+  <!-- </div> -->
 </template>
 
 <script>
 // @ is an alias to /src
 import Email from "@/assets/icons/envelope-regular.svg";
 import Password from "@/assets/icons/lock-alt-solid.svg";
+
+import Loading from "@/components/Loading";
 
 import firebase from "firebase/app";
 import "firebase/auth";
@@ -56,12 +61,14 @@ export default {
   components: {
     Email,
     Password,
+    Loading,
   },
 
   data() {
     return {
       error: null,
       errorMsg: "",
+      loading: null, // for loading animation
 
       userInfo: {
         email: "",
@@ -88,6 +95,7 @@ export default {
         this.errorMsg = "";
 
         try {
+          this.loading = true; // show loading animation
           firebase
             .auth()
             .signInWithEmailAndPassword(
@@ -96,6 +104,7 @@ export default {
             )
             .then(
               (user) => {
+                this.loading = false; // hide loading animation
                 db.collection("users")
                   .doc(user.user.uid)
                   .get()
@@ -108,11 +117,13 @@ export default {
                   });
               },
               (error) => {
+                this.loading = false; // hide loading animation
                 this.error = true;
                 this.errorMsg = error.message;
               }
             );
         } catch (error) {
+          this.loading = false;
           this.error = true;
           this.errorMsg = error.message;
         }

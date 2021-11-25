@@ -1,5 +1,7 @@
 <template>
   <div class="form-wrap">
+    <Loading v-if="loading" />
+
     <form class="register">
       <p class="login-register">
         Already have an account?
@@ -70,6 +72,8 @@ import Email from "@/assets/icons/envelope-regular.svg";
 import Password from "@/assets/icons/lock-alt-solid.svg";
 import User from "@/assets/icons/user-alt-light.svg";
 
+import Loading from "@/components/Loading";
+
 import firebase from "firebase/app";
 import "firebase/auth";
 import db from "@/firebase/firebaseInit";
@@ -81,12 +85,14 @@ export default {
     Email,
     Password,
     User,
+    Loading,
   },
 
   data() {
     return {
       error: null,
       errorMsg: "",
+      loading: null, // for loading animation
 
       userInfo: {
         firstName: "",
@@ -122,6 +128,7 @@ export default {
         this.errorMsg = "";
 
         try {
+          this.loading = true; // show loading animation
           firebase
             .auth()
             .createUserWithEmailAndPassword(
@@ -130,6 +137,7 @@ export default {
             )
             .then(
               (user) => {
+                this.loading = false; // hide loading animation
                 db.collection("users").doc(user.user.uid).set({
                   firstName: this.userInfo.firstName,
                   lastName: this.userInfo.lastName,
@@ -145,6 +153,7 @@ export default {
                 }
               },
               (error) => {
+                this.loading = false; // hide loading animation
                 this.error = true;
                 this.errorMsg = error.message;
               }

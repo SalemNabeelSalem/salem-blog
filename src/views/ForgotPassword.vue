@@ -41,6 +41,7 @@
 <script>
 // @ is an alias to /src
 import Email from "@/assets/icons/envelope-regular.svg";
+
 import Modal from "@/components/Modal";
 import Loading from "@/components/Loading";
 
@@ -87,23 +88,23 @@ export default {
     resetPassword() {
       if (this.checkFormFields()) {
         try {
-          this.loading = true;
+          this.loading = true; // show loading animation
           firebase
             .auth()
             .sendPasswordResetEmail(this.userInfo.email)
             .then(() => {
-              this.loading = false;
+              this.loading = false; // hide loading animation
               this.modalMessage =
                 "We have sent you an email with instructions to reset your password.";
               this.modalActive = true;
             })
             .catch((error) => {
-              this.loading = false;
+              this.loading = false; // hide loading animation
               this.modalMessage = error.message;
               this.modalActive = true;
             });
         } catch (error) {
-          this.loading = false;
+          this.loading = false; // hide loading animation
           this.modalMessage = error.message;
           this.modalActive = true;
         }
