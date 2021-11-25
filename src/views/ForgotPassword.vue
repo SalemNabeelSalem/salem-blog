@@ -3,7 +3,7 @@
     <Modal
       v-if="modalActive"
       :modalMessage="modalMessage"
-      v-on:close-modal="closeModal"
+      @close-modal="closeModal"
     />
 
     <Loading v-if="loading" />
@@ -23,7 +23,7 @@
 
         <div class="inputs">
           <div class="input">
-            <input type="text" placeholder="Email" v-model="email" />
+            <input type="email" placeholder="Email" v-model="userInfo.email" />
             <Email class="icon" />
           </div>
         </div>
@@ -58,35 +58,56 @@ export default {
 
   data() {
     return {
-      email: null,
+      userInfo: {
+        email: "",
+      },
       modalActive: false,
       modalMessage: null,
-      loading: null,
+      loading: null, // for loading animation
     };
   },
 
   methods: {
     closeModal() {
-      this.modalActive = !this.modalActive;
-      this.email = null;
+      this.modalActive = !this.modalActive; // close modal
+      this.modalMessage = null; // reset modal message
+      this.userInfo.email = ""; // reset email input
+    },
+
+    checkFormFields() {
+      if (this.userInfo.email === "") {
+        this.modalMessage = "Please enter your email.";
+        this.modalActive = true;
+        return false;
+      } else {
+        return true;
+      }
     },
 
     resetPassword() {
-      this.loading = true;
-
-      firebase
-        .auth()
-        .sendPasswordResetEmail(this.email)
-        .then(() => {
-          this.modalMessage = "Check Your Email For a Reset Link.";
+      if (this.checkFormFields()) {
+        try {
+          this.loading = true;
+          firebase
+            .auth()
+            .sendPasswordResetEmail(this.userInfo.email)
+            .then(() => {
+              this.loading = false;
+              this.modalMessage =
+                "We have sent you an email with instructions to reset your password.";
+              this.modalActive = true;
+            })
+            .catch((error) => {
+              this.loading = false;
+              this.modalMessage = error.message;
+              this.modalActive = true;
+            });
+        } catch (error) {
           this.loading = false;
-          this.modalActive = true;
-        })
-        .catch((error) => {
           this.modalMessage = error.message;
-          this.loading = false;
           this.modalActive = true;
-        });
+        }
+      }
     },
   },
 };

@@ -158,6 +158,7 @@ export default {
     }
 
     h2 {
+      // title of the form
       text-align: center;
       font-size: 32px;
       color: #303030;
@@ -204,7 +205,7 @@ export default {
       color: #000;
       cursor: pointer;
       font-size: 14px;
-      margin: 16px 0 32px;
+      margin: 16px 0 32px; // top = 16px, bottom = 32px, left = 0, right = 0
       border-bottom: 1px solid transparent;
       transition: 0.5s ease all;
 

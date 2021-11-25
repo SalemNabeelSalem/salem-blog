@@ -28,7 +28,7 @@ export default {
     }
   }
 
-  span {
+  span { // spinner
     display: block;
     width: 60px;
     height: 60px;

@@ -5,7 +5,7 @@
 
       <router-view />
 
-      <Footer v-if="!navigationDisable" />
+      <Footer v-if="!footerDisable" />
     </div>
   </div>
 </template> 
@@ -29,10 +29,15 @@ export default {
   data() {
     return {
       navigationDisable: null,
+      footerDisable: null,
     };
   },
 
   created() {
+    /**
+     * check if the route is /register or /login or /forgot-password and disable 
+     * the navigation and footer.
+     */
     this.checkRoute();
 
     // this.printCurrentUserEmail();
@@ -62,8 +67,10 @@ export default {
         this.$route.name === "ForgotPassword"
       ) {
         this.navigationDisable = true;
+        this.footerDisable = true;
       } else {
         this.navigationDisable = false;
+        this.footerDisable = false;
       }
     },
 

@@ -11,11 +11,12 @@
 export default {
   name: "modal",
 
+  // props are passed in from the parent component
   props: ["modalMessage"],
 
   methods: {
     closeModal() {
-      this.$emit("close-modal");
+      this.$emit("close-modal"); // emit close-modal event
     },
   },
 };
@@ -43,10 +44,12 @@ export default {
     background-color: #fff;
 
     p {
+      // modal message
       text-align: center;
     }
 
     button {
+      // close button
       align-self: center;
     }
   }
