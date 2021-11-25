@@ -15,8 +15,8 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 
-// import firebase from "firebase/app";
-// import "firebase/auth";
+import firebase from "firebase/app";
+import "firebase/auth";
 
 export default {
   name: "app",
@@ -39,6 +39,15 @@ export default {
      * the navigation and footer.
      */
     this.checkRoute();
+
+    firebase.auth().onAuthStateChanged((user) => {
+      this.$store.commit("updateUser", user);
+      if (user) {
+        this.$store.dispatch("getCurrentUser");
+        
+        // console.log("profile info is: ", this.$store.state.profileInfo);
+      }
+    });
   },
 
   methods: {

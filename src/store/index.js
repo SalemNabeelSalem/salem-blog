@@ -8,7 +8,8 @@ import db from "@/firebase/firebaseInit";
 Vue.use(Vuex);
 
 export default new Vuex.Store({
-  state: { // state is the data that is shared between components
+  state: {
+    // state is the data that is shared between components
     blogCards: [
       {
         postTitle: "Post Card #1",
@@ -36,49 +37,57 @@ export default new Vuex.Store({
 
     user: null,
 
-    profileEmail: null,
-
-    profileFirstName: null,
-
-    profileLastName: null,
-
-    profileUsername: null,
-
-    profileId: null,
-
-    profileInitials: null,
+    profileInfo: {
+      id: "",
+      email: "",
+      username: "",
+      firstName: "",
+      lastName: "",
+      initials: "",
+    },
   },
 
-  mutations: { // mutations are used to change the state of the store
-    toggleEditingPostControl(state, payload) { // payload is boolean value
-      state.editingPostControl = payload;
+  mutations: {
+    toggleEditingPostControl(state, payload) {
+      state.editingPostControl = payload; // payload is boolean value
+    },
+
+    updateUser(state, payload) {
+      state.user = payload;
     },
 
     setProfileInfo(state, payload) {
-      state.profileId = payload.id;
-      state.profileEmail = payload.data().email;
-      state.profileFirstName = payload.data().firstName;
-      state.profileLastName = payload.data().lastName;
-      state.profileUsername = payload.data().username;
+      state.profileInfo.id = payload.id;
+      state.profileInfo.email = payload.data().email;
+      state.profileInfo.username = payload.data().username;
+      state.profileInfo.firstName = payload.data().firstName;
+      state.profileInfo.lastName = payload.data().lastName;
     },
 
     setProfileInitials(state) {
-      state.profileInitials =
-        state.profileFirstName.match(/(\b\S)?/g).join("") +
-        state.profileLastName.match(/(\b\S)?/g).join("");
+      state.profileInfo.initials =
+        state.profileInfo.firstName.match(/(\b\S)?/g).join("") +
+        state.profileInfo.lastName.match(/(\b\S)?/g).join("");
     },
   },
 
   actions: {
     async getCurrentUser({ commit }) {
-      const user = db.collection("users").doc(firebase.auth().currentUser.uid);
+      const user = await db
+        .collection("users")
+        .doc(firebase.auth().currentUser.uid);
+
       const userData = await user.get();
+
       commit("setProfileInfo", userData);
+
       commit("setProfileInitials");
+
+      // console.log("user email is: ", userData.data().email);
     },
   },
 
-  modules: { // modules are used to group related state
-
+  modules: {
+    // modules are used to group related state
   },
 });
