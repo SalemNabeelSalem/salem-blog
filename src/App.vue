@@ -35,25 +35,11 @@ export default {
 
   created() {
     /**
-     * check if the route is /register or /login or /forgot-password and disable 
+     * check if the route is /register or /login or /forgot-password and disable
      * the navigation and footer.
      */
     this.checkRoute();
-
-    // this.printCurrentUserEmail();
-
-    /*
-    setTimeout(() => {
-      if (firebase.auth().currentUser.email != null) {
-        console.log("Current User Email: " + firebase.auth().currentUser.email);
-      } else {
-        console.log("No User Logged In.");
-      }
-    }, 5000);
-    */
   },
-
-  mounted() {},
 
   methods: {
     /**
@@ -73,19 +59,6 @@ export default {
         this.footerDisable = false;
       }
     },
-
-    /**
-     * prints the current user's email address.
-     */
-    /*
-    printCurrentUserEmail() {
-      if (firebase.auth().currentUser.email != null) {
-        console.log("Current User Email: " + firebase.auth().currentUser.email);
-      } else {
-        console.log("No User Logged In.");
-      }
-    },
-    */
   },
 
   watch: {
@@ -129,8 +102,8 @@ export default {
   color: #fff;
 }
 
+// arrow icon
 .arrow {
-  // arrow icon
   margin-left: 8px;
   width: 12px;
 
@@ -139,8 +112,8 @@ export default {
   }
 }
 
+// arrow icon for light theme
 .arrow-light {
-  // arrow icon for light theme
   path {
     fill: #fff;
   }
@@ -198,8 +171,8 @@ button,
   background-color: rgba(128, 128, 128, 0.5) !important;
 }
 
+// error message
 .error {
-  // error message
   text-align: center;
   font-size: 15px;
   color: red;

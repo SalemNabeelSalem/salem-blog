@@ -143,9 +143,12 @@ export default {
                   lastName: this.userInfo.lastName,
                   username: this.userInfo.username,
                   email: this.userInfo.email,
+                  createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+                  updateAt: firebase.firestore.FieldValue.serverTimestamp(),
                 });
 
                 if (user) {
+                  console.log("user created successfully with uid: ", user.user.uid);
                   this.$router.push({ name: "Home" });
                 } else {
                   this.error = true;
