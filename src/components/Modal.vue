@@ -43,13 +43,13 @@ export default {
     padding: 40px 30px;
     background-color: #fff;
 
+    // modal message
     p {
-      // modal message
       text-align: center;
     }
 
+    // close button
     button {
-      // close button
       align-self: center;
     }
   }

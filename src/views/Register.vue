@@ -92,7 +92,7 @@ export default {
     return {
       error: null,
       errorMsg: "",
-      loading: null, // for loading animation
+      loading: false, // visibility of loading spinner
 
       userInfo: {
         firstName: "",
@@ -128,7 +128,7 @@ export default {
         this.errorMsg = "";
 
         try {
-          this.loading = true; // show loading animation
+          this.loading = true; // show loading spinner
           firebase
             .auth()
             .createUserWithEmailAndPassword(
@@ -137,7 +137,7 @@ export default {
             )
             .then(
               (user) => {
-                this.loading = false; // hide loading animation
+                this.loading = false; // hide loading spinner
                 db.collection("users").doc(user.user.uid).set({
                   firstName: this.userInfo.firstName,
                   lastName: this.userInfo.lastName,
@@ -153,7 +153,7 @@ export default {
                 }
               },
               (error) => {
-                this.loading = false; // hide loading animation
+                this.loading = false; // hide loading spinner
                 this.error = true;
                 this.errorMsg = error.message;
               }

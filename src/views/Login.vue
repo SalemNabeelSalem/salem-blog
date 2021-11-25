@@ -68,7 +68,7 @@ export default {
     return {
       error: null,
       errorMsg: "",
-      loading: null, // for loading animation
+      loading: false, // visibility of loading spinner
 
       userInfo: {
         email: "",
@@ -95,7 +95,7 @@ export default {
         this.errorMsg = "";
 
         try {
-          this.loading = true; // show loading animation
+          this.loading = true; // show loading spinner
           firebase
             .auth()
             .signInWithEmailAndPassword(
@@ -104,7 +104,7 @@ export default {
             )
             .then(
               (user) => {
-                this.loading = false; // hide loading animation
+                this.loading = false; // hide loading spinner
                 db.collection("users")
                   .doc(user.user.uid)
                   .get()
@@ -117,7 +117,7 @@ export default {
                   });
               },
               (error) => {
-                this.loading = false; // hide loading animation
+                this.loading = false; // hide loading spinner
                 this.error = true;
                 this.errorMsg = error.message;
               }
@@ -168,8 +168,8 @@ export default {
       padding: 0 50px;
     }
 
+    // title of the form
     h2 {
-      // title of the form
       text-align: center;
       font-size: 32px;
       color: #303030;

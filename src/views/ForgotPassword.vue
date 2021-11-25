@@ -59,12 +59,13 @@ export default {
 
   data() {
     return {
+      modalActive: false, // visibility of modal
+      modalMessage: null, // message to display in modal
+      loading: false, // visibility of loading spinner
+
       userInfo: {
         email: "",
       },
-      modalActive: false,
-      modalMessage: null,
-      loading: null, // for loading animation
     };
   },
 
@@ -88,23 +89,23 @@ export default {
     resetPassword() {
       if (this.checkFormFields()) {
         try {
-          this.loading = true; // show loading animation
+          this.loading = true; // show loading spinner
           firebase
             .auth()
             .sendPasswordResetEmail(this.userInfo.email)
             .then(() => {
-              this.loading = false; // hide loading animation
+              this.loading = false; // hide loading spinner
               this.modalMessage =
                 "We have sent you an email with instructions to reset your password.";
               this.modalActive = true;
             })
             .catch((error) => {
-              this.loading = false; // hide loading animation
+              this.loading = false; // hide loading spinner
               this.modalMessage = error.message;
               this.modalActive = true;
             });
         } catch (error) {
-          this.loading = false; // hide loading animation
+          this.loading = false; // hide loading spinner
           this.modalMessage = error.message;
           this.modalActive = true;
         }
