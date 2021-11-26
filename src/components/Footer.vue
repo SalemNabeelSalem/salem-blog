@@ -41,9 +41,7 @@
               Blogs
             </router-link>
 
-            <router-link v-if="user" class="link" to="#">
-              Create Post
-            </router-link>
+            <router-link class="link" to="#"> Create Post </router-link>
 
             <router-link v-if="!user" class="link" :to="{ name: 'Login' }">
               Login In / Register
@@ -76,10 +74,14 @@ export default {
     Instegram,
   },
 
+  computed: {
+    user() {
+      return this.$store.state.user;
+    },
+  },
+
   data() {
     return {
-      user: null,
-
       profiles: {
         linkedin: "https://www.linkedin.com/in/isalem-nabeel",
         twitter: "https://twitter.com/isalem_nabeel",

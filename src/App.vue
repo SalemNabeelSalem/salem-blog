@@ -44,7 +44,6 @@ export default {
       this.$store.commit("updateUser", user);
       if (user) {
         this.$store.dispatch("getCurrentUser");
-        
         // console.log("profile info is: ", this.$store.state.profileInfo);
       }
     });

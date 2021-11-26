@@ -35,7 +35,7 @@ export default new Vuex.Store({
 
     editingPostControl: false, // true if editing post, false if not
 
-    user: null,
+    user: false,
 
     profileInfo: {
       id: "",
