@@ -1,12 +1,44 @@
 <template>
-  <div>
-    <h1>Admin</h1>
+  <div class="admin">
+    <div class="container">
+      <h2>Administration</h2>
+
+      <div class="admin-info">
+        <h2>Add Admin</h2>
+
+        <div class="input">
+          <input
+            placeholder="Enter user email to make them an admin"
+            type="email"
+            id="addAdmins"
+            v-model="adminEmail"
+          />
+        </div>
+
+        <span>{{ this.functionMsg }}</span>
+
+        <button @click="addAdmin" class="button">Submit</button>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
   name: "Admin",
+
+  data() {
+    return {
+      adminEmail: "",
+      functionMsg: "",
+    };
+  },
+
+  methods: {
+    addAdmin() {
+      console.log("addAdmin");
+    },
+  },
 };
 </script>
 
