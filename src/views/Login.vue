@@ -111,12 +111,14 @@ export default {
                   .then((doc) => {
                     if (doc.exists) {
                       console.log("user exists with id: ", user.user.uid);
-                      
+
                       // console.log("user exists with id: ", firebase.auth().currentUser.uid);
-                      
+
                       this.$router.push({ name: "Home" });
                     } else {
-                      console.log("user does not exist");
+                      this.loading = false; // hide loading spinner
+                      this.error = true;
+                      this.errorMsg = "user does not exist";
                     }
                   });
               },

@@ -24,6 +24,9 @@
 </template>
 
 <script>
+import firebase from "firebase/app";
+import "firebase/functions";
+
 export default {
   name: "Admin",
 
@@ -35,8 +38,22 @@ export default {
   },
 
   methods: {
-    addAdmin() {
-      console.log("addAdmin");
+    // check all form fields are filled
+    checkFormFields() {
+      if (this.adminEmail === "") {
+        this.functionMsg = "Please enter an email";
+        return false;
+      } else {
+        return true;
+      }
+    },
+
+    async addAdmin() {
+      if (this.checkFormFields()) {
+        const addAdmin = firebase.functions().httpsCallable("createTest");
+        const result = await addAdmin({ email: this.adminEmail });
+        this.functionMsg = result.data.message;
+      }
     },
   },
 };
@@ -67,7 +84,7 @@ export default {
       margin: 32px auto;
 
       span {
-        font-size: 14px;
+        font-size: 18px;
       }
 
       .input {
