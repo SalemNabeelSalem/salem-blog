@@ -72,7 +72,7 @@ export default {
   methods: {
     closeModal() {
       this.modalActive = !this.modalActive; // close modal
-      this.modalMessage = null; // reset modal message
+      this.modalMessage = ""; // reset modal message
       this.userInfo.email = ""; // reset email input
     },
 

@@ -39,12 +39,13 @@ export default new Vuex.Store({
 
     profileInfo: {
       id: "",
-      email: "",
-      username: "",
       firstName: "",
       lastName: "",
-      initials: "",
+      username: "",
+      email: "",
     },
+
+    profileInitials: "",
   },
 
   mutations: {
@@ -58,16 +59,28 @@ export default new Vuex.Store({
 
     setProfileInfo(state, payload) {
       state.profileInfo.id = payload.id;
-      state.profileInfo.email = payload.data().email;
-      state.profileInfo.username = payload.data().username;
       state.profileInfo.firstName = payload.data().firstName;
       state.profileInfo.lastName = payload.data().lastName;
+      state.profileInfo.username = payload.data().username;
+      state.profileInfo.email = payload.data().email;
     },
 
     setProfileInitials(state) {
-      state.profileInfo.initials =
+      state.profileInitials =
         state.profileInfo.firstName.match(/(\b\S)?/g).join("") +
         state.profileInfo.lastName.match(/(\b\S)?/g).join("");
+    },
+
+    changeFirstName(state, payload) {
+      state.profileInfo.firstName = payload;
+    },
+
+    changeLastName(state, payload) {
+      state.profileInfo.lastName = payload;
+    },
+
+    changeUsername(state, payload) {
+      state.profileInfo.username = payload;
     },
   },
 
@@ -84,6 +97,25 @@ export default new Vuex.Store({
       commit("setProfileInitials");
 
       // console.log("user email is: ", userData.data().email);
+    },
+
+    /*
+    async updateUserSettings({ commit, state }) {
+      const user = await db.collection("users").doc(state.profileInfo.id);
+
+      await user.update({
+        firstName: state.profileInfo.firstName,
+        lastName: state.profileInfo.lastName,
+        username: state.profileInfo.username,
+        updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
+      });
+
+      commit("setProfileInitials");
+    },
+    */
+
+    async updateProfileInitials({ commit }) {
+      commit("setProfileInitials");
     },
   },
 

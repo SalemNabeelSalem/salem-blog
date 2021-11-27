@@ -26,12 +26,12 @@
           v-if="user"
           @click="toggelProfileMenu"
         >
-          <span>{{ this.$store.state.profileInfo.initials }}</span>
+          <span>{{ this.$store.state.profileInitials }}</span>
 
           <div class="profile-menu" v-show="profileMenu">
             <div class="info">
               <p class="initials">
-                {{ this.$store.state.profileInfo.initials }}
+                {{ this.$store.state.profileInitials }}
               </p>
 
               <div class="right">
@@ -48,14 +48,14 @@
 
             <div class="options">
               <div class="option">
-                <router-link class="option" to="#">
+                <router-link class="option" :to="{ name: 'Profile' }">
                   <UserIcon class="icon" />
                   <p>Profile</p>
                 </router-link>
               </div>
 
               <div class="option">
-                <router-link class="option" to="#">
+                <router-link class="option" :to="{ name: 'Admin' }">
                   <AdminIcon class="icon" />
                   <p>Admin</p>
                 </router-link>

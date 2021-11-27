@@ -8,7 +8,7 @@
       <Footer v-if="!footerDisable" />
     </div>
   </div>
-</template> 
+</template>
 
 <script>
 // @ is an alias to /src
