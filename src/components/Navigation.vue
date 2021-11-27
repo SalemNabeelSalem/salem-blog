@@ -54,7 +54,7 @@
                 </router-link>
               </div>
 
-              <div class="option">
+              <div class="option" v-if="admin">
                 <router-link class="option" :to="{ name: 'Admin' }">
                   <AdminIcon class="icon" />
                   <p>Admin</p>
@@ -131,6 +131,10 @@ export default {
   computed: {
     user() {
       return this.$store.state.user;
+    },
+
+    admin() {
+      return this.$store.state.admin;
     },
   },
 

@@ -37,6 +37,8 @@ export default new Vuex.Store({
 
     user: false,
 
+    admin: false,
+
     profileInfo: {
       id: "",
       firstName: "",
@@ -55,6 +57,16 @@ export default new Vuex.Store({
 
     updateUser(state, payload) {
       state.user = payload;
+    },
+
+    setProfileAdmin(state, payload) {
+      if (payload) {
+        state.admin = true;
+        console.log("This user is an admin");
+      } else {
+        state.admin = false;
+        console.log("This user is not an admin");
+      }
     },
 
     setProfileInfo(state, payload) {
@@ -85,7 +97,7 @@ export default new Vuex.Store({
   },
 
   actions: {
-    async getCurrentUser({ commit }) {
+    async getCurrentUser({ commit }, userAuth) {
       const user = await db
         .collection("users")
         .doc(firebase.auth().currentUser.uid);
@@ -97,6 +109,12 @@ export default new Vuex.Store({
       commit("setProfileInitials");
 
       // console.log("user email is: ", userData.data().email);
+
+      const token = await userAuth.getIdTokenResult();
+
+      const admin = await token.claims.admin;
+
+      commit("setProfileAdmin", admin);
     },
 
     /*

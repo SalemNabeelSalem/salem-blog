@@ -12,9 +12,14 @@
       <div class="profile-info">
         <div class="initials">{{ profileInitials }}</div>
 
-        <div class="admin-badge">
+        <div class="admin-badge" v-if="admin">
           <AdminIcon class="icon" />
           <span>admin</span>
+        </div>
+
+        <div class="admin-badge" v-else>
+          <UserIcon class="icon" />
+          <span>User</span>
         </div>
 
         <div class="input">
@@ -46,6 +51,7 @@
 <script>
 // @ is an alias to /src
 import AdminIcon from "@/assets/icons/user-crown-light.svg";
+import UserIcon from "@/assets/icons/user-alt-light.svg";
 
 import Modal from "@/components/Modal";
 
@@ -58,6 +64,7 @@ export default {
 
   components: {
     AdminIcon,
+    UserIcon,
     Modal,
   },
 
@@ -69,6 +76,14 @@ export default {
   },
 
   computed: {
+    admin() {
+      return this.$store.state.admin;
+    },
+
+    user() {
+      return this.$store.state.user;
+    },
+
     firstName: {
       get() {
         return this.$store.state.profileInfo.firstName;
