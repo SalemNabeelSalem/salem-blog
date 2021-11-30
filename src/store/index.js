@@ -9,6 +9,14 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
+    blog: {
+      title: "",
+      html: "",
+      coverPhotoName: "",
+      coverPhotoFileUrl: "",
+      coverPhotoPreview: "",
+    },
+
     // state is the data that is shared between components
     blogCards: [
       {
@@ -51,6 +59,14 @@ export default new Vuex.Store({
   },
 
   mutations: {
+    newBlogPost(state, payload) {
+      state.blog.html = payload;
+    },
+
+    updateBlogTitle(state, payload) {
+      state.blog.title = payload;
+    },
+
     toggleEditingPostControl(state, payload) {
       state.editingPostControl = payload; // payload is boolean value
     },

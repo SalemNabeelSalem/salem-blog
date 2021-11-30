@@ -1,16 +1,113 @@
 <template>
-  <div>
-    <h1>Create Post</h1>
+  <div class="create-post">
+    <div class="container">
+      <div class="err-message" :class="{ invisible: !error }">
+        <p><span>Error:</span> {{ errorMsg }}</p>
+      </div>
+
+      <div class="blog-info">
+        <input type="text" plaseholder="Enter Blog Title" v-model="blogTitle" />
+        <div class="upload-file">
+          <label for="blog-photo">Upload Cover Photo</label>
+          <input
+            type="file"
+            id="blog-photo"
+            ref="blogPhoto"
+            accept=".png, .jpg, .jpeg"
+          />
+          <button
+            class="preview"
+            :class="{
+              'button-inactive': !this.$store.state.blog.coverPhotoFileUrl,
+            }"
+          >
+            Previwe Photo
+          </button>
+          <span>File Chosen: {{ this.$store.state.blog.coverPhotoName }}</span>
+        </div>
+      </div>
+
+      <div class="editor">
+        <vue-editor
+          :editorOptions="editorSetting"
+          v-model="blogHtml"
+          useCustomImageHandler
+        />
+      </div>
+
+      <div class="blog-actions">
+        <button>Publish Blog</button>
+        <router-link class="router-button" to="#">Post Preview</router-link>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
+// @ is an alias to /src
+import Quill from "quill";
+window.Quill = Quill;
+const ImageResize = require("quill-image-resize-module").default;
+Quill.register("modules/imageResize", ImageResize);
+
 export default {
   name: "CreatePost",
+
+  data() {
+    return {
+      error: false,
+      errorMsg: "",
+      editorSetting: {
+        modules: {
+          imageResize: {},
+        },
+      },
+    };
+  },
+
+  computed: {
+    profileId() {
+      return this.$store.state.profileInfo.id;
+    },
+
+    blogCoverPhotoName() {
+      return this.$store.state.blog.coverPhotoName;
+    },
+
+    blogTitle: {
+      get() {
+        return this.$store.state.blog.title;
+      },
+
+      set(payload) {
+        this.$store.commit("updateBlogTitle", payload);
+      },
+    },
+
+    blogHtml: {
+      get() {
+        return this.$store.state.blog.html;
+      },
+
+      set(payload) {
+        this.$store.commit("newBlogPost", payload);
+      },
+    },
+  },
+
+  mounted() {
+    this.test();
+  },
+
+  methods: {
+    test() {
+      console.log(this.profileId);
+    },
+  },
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .create-post {
   position: relative;
   height: 100%;
@@ -45,7 +142,7 @@ export default {
   .container {
     position: relative;
     height: 100%;
-    padding: 10px 25px 60px;
+    padding: 10px 25px 60px; // top = 10px, bottom = 60px, left = 25px, right = 25px
   }
 
   // error styling
