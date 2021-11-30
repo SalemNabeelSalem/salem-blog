@@ -9,12 +9,12 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    blog: {
+    blogPost: {
       title: "",
       html: "",
       coverPhotoName: "",
-      coverPhotoFileUrl: "",
-      coverPhotoPreview: "",
+      coverPhotoUrl: "",
+      coverPhotoPreview: false,
     },
 
     // state is the data that is shared between components
@@ -59,12 +59,31 @@ export default new Vuex.Store({
   },
 
   mutations: {
-    newBlogPost(state, payload) {
-      state.blog.html = payload;
+    updateBlogPostTitle(state, payload) {
+      state.blogPost.title = payload;
+      // console.log("blogPostTitle: " + state.blogPost.title);
     },
 
-    updateBlogTitle(state, payload) {
-      state.blog.title = payload;
+    updateBlogPostHtml(state, payload) {
+      state.blogPost.html = payload;
+      // console.log("blogPostHtml: " + state.blogPost.html);
+    },
+
+    updateBlogPostCoverPhotoName(state, payload) {
+      state.blogPost.coverPhotoName = payload;
+      // console.log("blogPostCoverPhotoName: " + state.blogPost.coverPhotoName);
+    },
+
+    updateBlogPostCoverPhotoUrl(state, payload) {
+      state.blogPost.coverPhotoUrl = payload;
+      // console.log("blogPostCoverPhotoUrl: " + state.blogPost.coverPhotoUrl);
+    },
+
+    openCoverPhotoPreview(state) {
+      state.blogPost.coverPhotoPreview = !state.blogPost.coverPhotoPreview;
+      // console.log(
+      // "blogPostCoverPhotoPreview" + state.blogPost.coverPhotoPreview
+      // );
     },
 
     toggleEditingPostControl(state, payload) {

@@ -1,12 +1,20 @@
 <template>
   <div class="create-post">
+    <BlogPostCoverPhotoPreview
+      v-show="this.$store.state.blogPost.coverPhotoPreview"
+    />
+
     <div class="container">
       <div class="err-message" :class="{ invisible: !error }">
         <p><span>Error:</span> {{ errorMsg }}</p>
       </div>
 
       <div class="blog-info">
-        <input type="text" plaseholder="Enter Blog Title" v-model="blogTitle" />
+        <input
+          type="text"
+          plaseholder="Enter Blog Title"
+          v-model="blogPostTitle"
+        />
         <div class="upload-file">
           <label for="blog-photo">Upload Cover Photo</label>
           <input
@@ -14,23 +22,27 @@
             id="blog-photo"
             ref="blogPhoto"
             accept=".png, .jpg, .jpeg"
+            @change="uploadBlogPostCoverPhoto"
           />
           <button
             class="preview"
             :class="{
-              'button-inactive': !this.$store.state.blog.coverPhotoFileUrl,
+              'button-inactive': !this.$store.state.blogPost.coverPhotoUrl,
             }"
+            @click="showCoverPhotoPreview"
           >
             Previwe Photo
           </button>
-          <span>File Chosen: {{ this.$store.state.blog.coverPhotoName }}</span>
+          <span>
+            File Chosen: {{ this.$store.state.blogPost.coverPhotoName }}
+          </span>
         </div>
       </div>
 
       <div class="editor">
         <vue-editor
           :editorOptions="editorSetting"
-          v-model="blogHtml"
+          v-model="blogPostHtml"
           useCustomImageHandler
         />
       </div>
@@ -45,6 +57,8 @@
 
 <script>
 // @ is an alias to /src
+import BlogPostCoverPhotoPreview from "@/components/PhotoPreview.vue";
+
 import Quill from "quill";
 window.Quill = Quill;
 const ImageResize = require("quill-image-resize-module").default;
@@ -53,15 +67,23 @@ Quill.register("modules/imageResize", ImageResize);
 export default {
   name: "CreatePost",
 
+  components: {
+    BlogPostCoverPhotoPreview,
+  },
+
   data() {
     return {
       error: false,
+
       errorMsg: "",
+
       editorSetting: {
         modules: {
           imageResize: {},
         },
       },
+
+      imageFile: null,
     };
   },
 
@@ -70,38 +92,46 @@ export default {
       return this.$store.state.profileInfo.id;
     },
 
-    blogCoverPhotoName() {
-      return this.$store.state.blog.coverPhotoName;
-    },
-
-    blogTitle: {
+    blogPostTitle: {
       get() {
-        return this.$store.state.blog.title;
+        return this.$store.state.blogPost.title;
       },
 
       set(payload) {
-        this.$store.commit("updateBlogTitle", payload);
+        this.$store.commit("updateBlogPostTitle", payload);
       },
     },
 
-    blogHtml: {
+    blogPostHtml: {
       get() {
-        return this.$store.state.blog.html;
+        return this.$store.state.blogPost.html;
       },
 
       set(payload) {
-        this.$store.commit("newBlogPost", payload);
+        this.$store.commit("updateBlogPostHtml", payload);
       },
     },
-  },
 
-  mounted() {
-    this.test();
+    blogPostCoverPhotoName() {
+      return this.$store.state.blogPost.coverPhotoName;
+    },
   },
 
   methods: {
-    test() {
-      console.log(this.profileId);
+    uploadBlogPostCoverPhoto() {
+      this.imageFile = this.$refs.blogPhoto.files[0];
+
+      const imageFileName = this.imageFile.name;
+
+      this.$store.commit("updateBlogPostCoverPhotoName", imageFileName);
+
+      const imageFileUrl = URL.createObjectURL(this.imageFile);
+
+      this.$store.commit("updateBlogPostCoverPhotoUrl", imageFileUrl);
+    },
+
+    showCoverPhotoPreview() {
+      this.$store.commit("openCoverPhotoPreview");
     },
   },
 };
