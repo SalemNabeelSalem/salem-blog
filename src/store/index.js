@@ -61,28 +61,28 @@ export default new Vuex.Store({
   mutations: {
     updateBlogPostTitle(state, payload) {
       state.blogPost.title = payload;
-      // console.log("blogPostTitle: " + state.blogPost.title);
+      // console.log("blog-post-title: " + state.blogPost.title);
     },
 
     updateBlogPostHtml(state, payload) {
       state.blogPost.html = payload;
-      // console.log("blogPostHtml: " + state.blogPost.html);
+      // console.log(state.blogPost.html);
     },
 
     updateBlogPostCoverPhotoName(state, payload) {
       state.blogPost.coverPhotoName = payload;
-      // console.log("blogPostCoverPhotoName: " + state.blogPost.coverPhotoName);
+      // console.log("blog-post-cover-photo-name: " + state.blogPost.coverPhotoName);
     },
 
     updateBlogPostCoverPhotoUrl(state, payload) {
       state.blogPost.coverPhotoUrl = payload;
-      // console.log("blogPostCoverPhotoUrl: " + state.blogPost.coverPhotoUrl);
+      // console.log("blog-post-cover-photo-url: " + state.blogPost.coverPhotoUrl);
     },
 
     openCoverPhotoPreview(state) {
       state.blogPost.coverPhotoPreview = !state.blogPost.coverPhotoPreview;
       // console.log(
-      // "blogPostCoverPhotoPreview" + state.blogPost.coverPhotoPreview
+      // "blog-post-cover-photo-preview" + state.blogPost.coverPhotoPreview
       // );
     },
 
@@ -97,10 +97,10 @@ export default new Vuex.Store({
     setProfileAdmin(state, payload) {
       if (payload) {
         state.admin = true;
-        console.log("This user is an admin");
+        console.log("this user is an admin");
       } else {
         state.admin = false;
-        console.log("This user is not an admin");
+        console.log("this user is not an admin");
       }
     },
 

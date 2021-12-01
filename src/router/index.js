@@ -1,7 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 
-// Importing Views
+// importing views
 import Home from "@/views/Home.vue";
 import Blogs from "@/views/Blogs.vue";
 import Login from "@/views/Login.vue";
@@ -19,7 +19,7 @@ const routes = [
     name: "Home",
     component: Home,
     meta: {
-      title: "Home", // This is the title that will be displayed in the browser tab
+      title: "Home", // this is the title that will be displayed in the browser tab
     },
   },
   {
@@ -27,7 +27,7 @@ const routes = [
     name: "Blogs",
     component: Blogs,
     meta: {
-      title: "Blogs", // This is the title that will be displayed in the browser tab
+      title: "Blogs", // this is the title that will be displayed in the browser tab
     },
   },
   {
@@ -35,7 +35,7 @@ const routes = [
     name: "Login",
     component: Login,
     meta: {
-      title: "Login", // This is the title that will be displayed in the browser tab
+      title: "Login", // this is the title that will be displayed in the browser tab
     },
   },
   {
@@ -43,7 +43,7 @@ const routes = [
     name: "Register",
     component: Register,
     meta: {
-      title: "Register", // This is the title that will be displayed in the browser tab
+      title: "Register", // this is the title that will be displayed in the browser tab
     },
   },
   {
@@ -51,7 +51,7 @@ const routes = [
     name: "ForgotPassword",
     component: ForgotPassword,
     meta: {
-      title: "Forgot Password", // This is the title that will be displayed in the browser tab
+      title: "Forgot Password", // this is the title that will be displayed in the browser tab
     },
   },
   {
@@ -59,7 +59,7 @@ const routes = [
     name: "Profile",
     component: Profile,
     meta: {
-      title: "Profile", // This is the title that will be displayed in the browser tab
+      title: "Profile", // this is the title that will be displayed in the browser tab
     },
   },
   {
@@ -67,7 +67,7 @@ const routes = [
     name: "Admin",
     component: Admin,
     meta: {
-      title: "Admin", // This is the title that will be displayed in the browser tab
+      title: "Admin", // this is the title that will be displayed in the browser tab
     },
   },
   {
@@ -81,7 +81,7 @@ const routes = [
 ];
 
 const router = new VueRouter({
-  mode: "history", // This is to remove the # from the url
+  mode: "history", // this is to remove the # from the url
   base: process.env.BASE_URL,
   routes,
 });

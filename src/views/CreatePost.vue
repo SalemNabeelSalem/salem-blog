@@ -44,6 +44,7 @@
           :editorOptions="editorSetting"
           v-model="blogPostHtml"
           useCustomImageHandler
+          @image-added="imageHandler"
         />
       </div>
 
@@ -58,6 +59,9 @@
 <script>
 // @ is an alias to /src
 import BlogPostCoverPhotoPreview from "@/components/PhotoPreview.vue";
+
+import firebase from "firebase/app";
+import "firebase/storage";
 
 import Quill from "quill";
 window.Quill = Quill;
@@ -132,6 +136,54 @@ export default {
 
     showCoverPhotoPreview() {
       this.$store.commit("openCoverPhotoPreview");
+    },
+
+    imageHandler(imageFile, Editor, cursorLocation, resetUploader) {
+      try {
+        const storageRef = firebase.storage().ref();
+
+        const imageRef = storageRef.child(
+          `${this.profileId}/blog-post-cover-photo/${imageFile.name}`
+        );
+
+        const uploadTask = imageRef.put(imageFile);
+
+        uploadTask.on(
+          "state_changed",
+          (snapshot) => {
+            /**
+             * observe state change events such as progress, pause, and resume.
+             *
+             * get task progress, including the number of bytes uploaded and the total number of
+             * bytes to be uploaded.
+             */
+            const progress =
+              (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+
+            console.log("upload is: " + progress + "% done");
+          },
+          (error) => {
+            // handle unsuccessful uploads.
+            console.log(error);
+          },
+          async () => {
+            // handle successful uploads on complete.
+            uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
+              console.log("file available at: ", downloadURL);
+
+              const imageUrl = downloadURL;
+
+              // const imageHtml = `<img src="${imageUrl}" />`;
+
+              Editor.insertEmbed(cursorLocation, "image", imageUrl);
+
+              resetUploader();
+            });
+          }
+        );
+      } catch (error) {
+        console.log(error);
+      }
     },
   },
 };
