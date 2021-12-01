@@ -1,5 +1,13 @@
 <template>
   <div class="create-post">
+    <ImageUploadProgressBar
+      v-if="imageUploadProgressBarActive"
+      :diameter="200"
+      :completedSteps="completedSteps"
+      :totalSteps="totalSteps"
+      @close-modal="closeProgressBar"
+    />
+
     <BlogPostCoverPhotoPreview
       v-show="this.$store.state.blogPost.coverPhotoPreview"
     />
@@ -59,6 +67,7 @@
 <script>
 // @ is an alias to /src
 import BlogPostCoverPhotoPreview from "@/components/PhotoPreview.vue";
+import ImageUploadProgressBar from "@/components/ProgressBar.vue";
 
 import firebase from "firebase/app";
 import "firebase/storage";
@@ -73,10 +82,13 @@ export default {
 
   components: {
     BlogPostCoverPhotoPreview,
+    ImageUploadProgressBar,
   },
 
   data() {
     return {
+      imageUploadProgressBarActive: false, // visibility of image upload progress bar
+
       error: false,
 
       errorMsg: "",
@@ -88,6 +100,10 @@ export default {
       },
 
       imageFile: null,
+
+      completedSteps: 0,
+
+      totalSteps: 100,
     };
   },
 
@@ -122,6 +138,10 @@ export default {
   },
 
   methods: {
+    closeProgressBar() {
+      this.imageUploadProgressBarActive = !this.imageUploadProgressBarActive; // close modal
+    },
+
     uploadBlogPostCoverPhoto() {
       this.imageFile = this.$refs.blogPhoto.files[0];
 
@@ -159,6 +179,10 @@ export default {
              */
             const progress =
               (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+
+            this.imageUploadProgressBarActive = true;
+
+            this.completedSteps = Math.round(progress);
 
             console.log("upload is: " + progress + "% done");
           },
